@@ -59,14 +59,16 @@ const AddBookToShelves = (request, h) => {
 
 const GetBooksHandler = (request, h) => {
     const {name, finished, reading} = request.query
-    let sortedBooks = books
-    if(name !== undefined){
-        sortedBooks = books.filter((book) => book.name.toLowerCase().includes(name.toLowerCase))
+    let sortedBooks = []
 
+    if(name !== undefined){
+        sortedBooks = books.filter((book) => book.name.toLowerCase().includes(name.toLowerCase()))
+        console.log(sortedBooks)
         const response = h.response({
             status: 'Success',
-            Books: {sortedBooks}
+            books: {sortedBooks}
         })
+        console.log(books)
         response.code(200)
         return response
     }
@@ -75,7 +77,7 @@ const GetBooksHandler = (request, h) => {
         sortedBooks = books.filter((book) => book.finished == (finished == 1))
         const response = h.response({
             status: 'Success',
-            Books: {sortedBooks}
+            books: {sortedBooks}
         })
         response.code(200)
         return response
@@ -85,14 +87,14 @@ const GetBooksHandler = (request, h) => {
         sortedBooks = books.filter((book) => book.reading == (reading == 1))
         const response = h.response({
             status: 'Success',
-            Books: {sortedBooks}
+            books: {sortedBooks}
         })
         response.code(200)
         return response
     }
 
     return h.response({ status: 'Success',
-                      Books: {sortedBooks}})
+                      books: {books}})
 
 }
 
